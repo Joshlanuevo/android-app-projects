@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     EditText editText;
@@ -30,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
                 // Getting the user input (Kilos)
                  String inputText = editText.getText().toString();
 
+                 // If the input is empty and non-numeric
+                if (inputText.isEmpty() || !inputText.matches("\\d*\\.?\\d+")) {
+                    // Display a toast message indicating invalid input
+                    Toast.makeText(MainActivity.this, "Please enter a valid number.", Toast.LENGTH_SHORT).show();
+                    hideKeyboard();
+                    return;
+                }
+
                 // Converting a string into double
                  double kilos = Double.parseDouble(inputText);
 
@@ -42,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 editText.setText("");
 
                 // Hide Keyboard after the conversion
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                hideKeyboard();
             }
         });
     }
@@ -52,5 +60,11 @@ public class MainActivity extends AppCompatActivity {
         // 1 kilo is equivalent to 2.20462
 
         return kilos * 2.20462;
+    }
+
+    // Hide keyboard function
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 }
