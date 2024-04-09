@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
                 textView.setText("" + pounds);
 
+                // Clear editText
+                editText.setText("");
+
                 // Hide Keyboard after the conversion
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
