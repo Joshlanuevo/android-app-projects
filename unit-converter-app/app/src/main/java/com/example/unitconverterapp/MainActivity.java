@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
     Button btn;
     TextView textView;
+    Button clearBtn;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         editText = findViewById(R.id.editText);
         btn = findViewById(R.id.btn);
         textView = findViewById(R.id.textView);
+        clearBtn = findViewById(R.id.clearBtn);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
                 hideKeyboard();
             }
         });
+
+        clearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearOutput();
+            }
+        });
     }
 
     private double makeConversion(double kilos) {
@@ -66,5 +75,9 @@ public class MainActivity extends AppCompatActivity {
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+
+    private void clearOutput() {
+        textView.setText("0");
     }
 }
