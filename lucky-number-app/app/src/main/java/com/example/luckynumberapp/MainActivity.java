@@ -29,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String userName = editText.getText().toString();
 
+                // Explicit intent
                 Intent i = new Intent(getApplicationContext(), SecondActivity.class);
 
+                // Passing the name to the second activity
                 i.putExtra("name", userName);
 
                 startActivity(i);
