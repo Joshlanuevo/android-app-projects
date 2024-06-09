@@ -1,6 +1,15 @@
 package com.example.contactmanagerapp;
 
+import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
+
+import androidx.lifecycle.LiveData;
+
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 public class Repository {
     // The Available Data Sources:
@@ -8,20 +17,44 @@ public class Repository {
 
     private final ContactDao contactDao;
 
-    public Repository(ContactDao contactDao) {
-        this.contactDao = contactDao;
+    ExecutorService executor;
+    Handler handler;
+
+    public Repository(Application application) {
+        ContactDatabase contactDatabase = ContactDatabase.getInstance(application);
+        this.contactDao = contactDatabase.getContactDao();
+
+        // Used for Background Database Operations
+        executor = Executors.newSingleThreadExecutor();
+
+        // Used for updating the UI
+        handler = new Handler(Looper.getMainLooper());
     }
 
     // Methods in DAO being executed from Repository
     public void addContact(Contacts contact) {
-        contactDao.insert(contact);
+
+        // Runnable: Executing Tasks on Separate Thread
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                // Execute this code asynchronously
+                // on separate thread
+                contactDao.insert(contact);
+            }
+        });
     }
 
     public void deleteContact(Contacts contact) {
-        contactDao.delete(contact);
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                contactDao.delete(contact);
+            }
+        });
     }
 
-    public List<Contacts> getAllContacts() {
-        contactDao.getAllContacts();
+    public LiveData<List<Contacts>> getAllContacts() {
+        return contactDao.getAllContacts();
     }
 }
