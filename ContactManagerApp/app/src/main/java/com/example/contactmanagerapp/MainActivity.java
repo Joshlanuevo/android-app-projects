@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         myViewModel.getAllContacts().observe(this, new Observer<List<Contacts>>() {
             @Override
             public void onChanged(List<Contacts> contacts) {
+
+                contactsArrayList.clear();
+
                 for (Contacts c: contacts) {
                     Log.v("Letsgo", c.getName());
                     contactsArrayList.add(c);
