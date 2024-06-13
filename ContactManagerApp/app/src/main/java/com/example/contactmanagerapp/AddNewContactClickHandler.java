@@ -10,10 +10,12 @@ public class AddNewContactClickHandler {
 
     Contacts contact;
     Context context;
+    MyViewModel myViewModel;
 
-    public AddNewContactClickHandler(Contacts contact, Context context) {
+    public AddNewContactClickHandler(Contacts contact, Context context, MyViewModel myViewModel) {
         this.contact = contact;
         this.context = context;
+        this.myViewModel = myViewModel;
     }
 
     public void onSubmitBtnClicked(View view) {
@@ -27,8 +29,13 @@ public class AddNewContactClickHandler {
             Log.d("AddNewContactClickHandler", "Name: " + name);
             Log.d("AddNewContactClickHandler", "Email: " + email);
             Intent i = new Intent(context, MainActivity.class);
-            i.putExtra("name", contact.getName());
-            i.putExtra("email", contact.getEmail());
+//            i.putExtra("Name", contact.getName());
+//            i.putExtra("Email", contact.getEmail());
+            Contacts c = new Contacts(
+                    contact.getName(),
+                    contact.getEmail()
+            );
+            myViewModel.addNewContact(c);
             context.startActivity(i);
         }
     }
