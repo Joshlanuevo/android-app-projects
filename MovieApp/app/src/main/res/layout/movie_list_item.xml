@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -18,7 +16,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/cvMovie"
             android:layout_margin="5dp"
             android:elevation="3dp"
@@ -27,7 +25,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     bind:posterPath="@{movie.posterPath}"
@@ -35,7 +33,7 @@
                     android:layout_height="200dp"
                     android:id="@+id/ivMovie"
                     android:scaleType="fitXY"/>
-                
+
                 <TextView
                     android:text="@{movie.title}"
                     android:id="@+id/tvTitle"
@@ -47,7 +45,7 @@
                     android:textSize="15dp"
                     android:textColor="@color/black"
                     android:layout_below="@id/ivMovie"/>
-                
+
                 <TextView
                     android:text="@{Double.toString(movie.voteAverage)}"
                     android:id="@+id/tvRating"

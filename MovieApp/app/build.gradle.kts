@@ -50,4 +50,5 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
 }
